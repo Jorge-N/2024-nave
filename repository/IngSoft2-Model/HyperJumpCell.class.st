@@ -2,7 +2,7 @@ Class {
 	#name : #HyperJumpCell,
 	#superclass : #Cell,
 	#instVars : [
-		'lengths'
+		'currentEffect'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -16,16 +16,17 @@ HyperJumpCell class >> withLengths: aCollectionOfLenghts [
 { #category : #'cell effect' }
 HyperJumpCell >> applyEffectTo: aShip in: aBoard [
 
-	| anAmountToMove |
-	anAmountToMove := lengths first.
-	lengths removeFirst.
-	lengths addLast: anAmountToMove.
-	aBoard move: aShip by: anAmountToMove
+	currentEffect applyEffectTo: aShip in: aBoard
 ]
 
 { #category : #initialization }
 HyperJumpCell >> initializeWith: someLengths [
 
-	lengths := someLengths.
-	^ self
+	currentEffect := NormalHyperJumpEffect withLengths: someLengths
+]
+
+{ #category : #'as yet unclassified' }
+HyperJumpCell >> reverseEffect [
+
+	currentEffect := currentEffect reverse
 ]
