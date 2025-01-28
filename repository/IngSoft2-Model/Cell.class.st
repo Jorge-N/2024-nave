@@ -55,3 +55,9 @@ Cell >> leaves: aShip [
 
 	ships remove: aShip
 ]
+
+{ #category : #'as yet unclassified' }
+Cell >> reverseEffect [
+
+	self subclassResponsibility
+]
