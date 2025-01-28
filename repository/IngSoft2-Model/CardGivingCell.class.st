@@ -2,7 +2,8 @@ Class {
 	#name : #CardGivingCell,
 	#superclass : #Cell,
 	#instVars : [
-		'deck'
+		'deck',
+		'currentEffect'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -22,7 +23,7 @@ CardGivingCell class >> new [
 { #category : #'cell effect' }
 CardGivingCell >> applyEffectTo: aShip in: aBoard [
 
-	aShip receive: deck drawCard
+	currentEffect applyEffectTo: aShip in: aBoard
 ]
 
 { #category : #initialization }
@@ -30,5 +31,12 @@ CardGivingCell >> initializeWith: aDeck [
 
 	ships := OrderedCollection new.
 	deck := aDeck.
+	currentEffect := NormalCardGivingEffect deck: aDeck.
 	^ self
+]
+
+{ #category : #'cell effect' }
+CardGivingCell >> reverseEffect [
+
+	currentEffect := currentEffect reverse
 ]

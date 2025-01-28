@@ -704,6 +704,47 @@ GameTest >> testWhenAShipPlaysAReversalCardOnABlackholeCellAndLandsOnItItShouldM
 ]
 
 { #category : #tests }
+GameTest >> testWhenAShipPlaysAReversalCardOnACardGivingCellAndLandsOnItItShouldHaveOneLessCard [
+
+	| aShip someShips aGame someDice someCells cardsToDraw deck aReversalCard aCell |
+	aShip := 'test-ship-1'.
+	someShips := OrderedCollection with: aShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 1 ) asOrderedCollection)).
+	cardsToDraw := OrderedCollection
+		               with: ReversalCard new
+		               with: ReversalCard new
+		               with: ReversalCard new
+		               with: ReversalCard new
+		               with: ReversalCard new.
+	someCells := OrderedCollection new.
+	someCells add: NormalCell new.
+	someCells add: CardGivingCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: 10
+		         wormholeStart: 3
+		         wormholeEnd: 4
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator cells: someCells)
+		         deck: (LoadedDeck cards: cardsToDraw).
+
+	deck := aGame cardsOf: aShip.
+	aReversalCard := deck first.
+	aCell := someCells second.
+	aGame playCard: aReversalCard by: aShip target: aCell.
+	aGame throwDice.
+
+	self assert: (aGame cardsOf: aShip) size equals: 0
+]
+
+{ #category : #tests }
 GameTest >> testWhenAShipPlaysAReversalCardOnAHyperJumpCellItShouldMoveBackwardsInsteadOfForwards [
 
 	| aShip someShips aGame someDice someCells anotherShip cardsToDraw deck aReversalCard aCell |
