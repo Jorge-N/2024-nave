@@ -16,6 +16,13 @@ Ship class >> named: aShipName cards: someCards [
 	^ self new initializeWith: aShipName cards: someCards
 ]
 
+{ #category : #'shields logic' }
+Ship >> addShield [
+
+	shields := shields + 1.
+	
+]
+
 { #category : #accessing }
 Ship >> cards [
 
