@@ -20,6 +20,12 @@ Parsecs >> initializeWith: anAmount [
 ]
 
 { #category : #converting }
+Parsecs >> negated [
+
+	^ self initializeWith: amount * -1
+]
+
+{ #category : #converting }
 Parsecs >> toCellsOf: aBoard [
 
 	^ amount // aBoard parsecsPerCell
