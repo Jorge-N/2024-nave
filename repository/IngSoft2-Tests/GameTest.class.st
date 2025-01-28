@@ -663,6 +663,108 @@ GameTest >> testWhenAShipLandsInACardGivingCellTheShipShouldHaveOneMoreCard [
 ]
 
 { #category : #tests }
+GameTest >> testWhenAShipPlaysAReversalCardOnAMoonwalkCellAllShipsExceptItShouldGoForwardsInsteadOfBackwards [
+
+	| aShip someShips aGame someDice someCells anotherShip yetAnotherShip cardsToDraw deck aReversalCard aCell |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	yetAnotherShip := 'test-ship-3'.
+	someShips := OrderedCollection
+		             with: aShip
+		             with: anotherShip
+		             with: yetAnotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 6 ) asOrderedCollection)).
+	cardsToDraw := OrderedCollection
+		               with: ReversalCard new
+		               with: ReversalCard new.
+	someCells := OrderedCollection new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: (MoonwalkCell times: 1).
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: 10
+		         wormholeStart: 8
+		         wormholeEnd: 9
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator cells: someCells)
+		         deck: (LoadedDeck cards: cardsToDraw).
+	deck := aGame cardsOf: aShip.
+	aReversalCard := deck first.
+	aCell := someCells seventh.
+	aGame playCard: aReversalCard by: aShip target: aCell.
+	aGame throwDice.
+
+	self assert: (aGame indexOfCellWith: aShip) equals: 7.
+	self assert: (aGame indexOfCellWith: anotherShip) equals: 2.
+	self assert: (aGame indexOfCellWith: yetAnotherShip) equals: 2
+]
+
+{ #category : #tests }
+GameTest >> testWhenAShipPlaysAReversalCardOnAMoonwalkCellTheReversedEffectIsPreservedIfTwoShipsLandOnThatCell [
+
+	| aShip someShips aGame someDice someCells anotherShip yetAnotherShip cardsToDraw deck aReversalCard aCell |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	yetAnotherShip := 'test-ship-3'.
+	someShips := OrderedCollection
+		             with: aShip
+		             with: anotherShip
+		             with: yetAnotherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 1 2 6 4 ) asOrderedCollection)).
+	cardsToDraw := OrderedCollection
+		               with: ReversalCard new
+		               with: ReversalCard new.
+	someCells := OrderedCollection new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: (MoonwalkCell times: 1).
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: 10
+		         wormholeStart: 11
+		         wormholeEnd: 12
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator cells: someCells)
+		         deck: (LoadedDeck cards: cardsToDraw).
+	deck := aGame cardsOf: aShip.
+	aReversalCard := deck first.
+	aCell := someCells seventh.
+	aGame playCard: aReversalCard by: aShip target: aCell.
+	aGame throwDice.
+	aGame throwDice.
+	aGame throwDice.
+	aGame throwDice.
+	
+	self assert: (aGame indexOfCellWith: aShip) equals: 7.
+	self assert: (aGame indexOfCellWith: anotherShip) equals: 5.
+	self assert: (aGame indexOfCellWith: yetAnotherShip) equals: 8
+]
+
+{ #category : #tests }
 GameTest >> testWhenAShipPlaysASpeedCardThenTheOtherShipShouldntMoveOneMoreCell [
 
 	| aShip aGame someShips someDice anotherShip aSpeedCard deck cardsToDraw |
