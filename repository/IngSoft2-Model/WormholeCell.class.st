@@ -2,7 +2,8 @@ Class {
 	#name : #WormholeCell,
 	#superclass : #Cell,
 	#instVars : [
-		'wormholeEnd'
+		'wormholeEnd',
+		'currentEffect'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -28,14 +29,18 @@ WormholeCell class >> newPairIn: someCells start: wormholeStartLocation end: wor
 { #category : #'cell effect' }
 WormholeCell >> applyEffectTo: aShip in: aBoard [
 
-	| aCell |
-	aCell := aBoard whereIs: aShip.
-	aCell leaves: aShip.
-	wormholeEnd enters: aShip
+	currentEffect applyEffectTo: aShip in: aBoard
 ]
 
 { #category : #initialization }
 WormholeCell >> initializeWith: aWormholeCell [
 
+	currentEffect := NormalWormholeEffect withStart: self withEnd: aWormholeCell .
 	wormholeEnd := aWormholeCell
+]
+
+{ #category : #'cell effect' }
+WormholeCell >> reverseEffect [
+
+	currentEffect := currentEffect reverse
 ]
