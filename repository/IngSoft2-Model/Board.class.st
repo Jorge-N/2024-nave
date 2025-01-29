@@ -56,6 +56,12 @@ Board >> applyLastEffectTo: aShipName [
 	lastCellEffectUsed applyEffectTo: aShip in: self
 ]
 
+{ #category : #accessing }
+Board >> cellWithIndex: aCellIndex [
+
+	^ cells at: aCellIndex
+]
+
 { #category : #'helper methods' }
 Board >> checkIf: shipToPlay IsCollidingIn: aGame [
 

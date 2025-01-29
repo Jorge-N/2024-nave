@@ -17,10 +17,11 @@ NormalWormholeEffect class >> withStart: aWormholeCell withEnd: anotherWormholeC
 { #category : #'cell effect' }
 NormalWormholeEffect >> applyEffectTo: aShip in: aBoard [
 
-	| aCell |
+	| aCell wormholeEndCell |
+	wormholeEndCell := aBoard cellWithIndex: wormholeEnd.
 	aCell := aBoard whereIs: aShip.
 	aCell leaves: aShip.
-	wormholeEnd enters: aShip
+	wormholeEndCell enters: aShip
 ]
 
 { #category : #initialization }
