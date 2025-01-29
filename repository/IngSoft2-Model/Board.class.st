@@ -64,6 +64,15 @@ Board >> checkIf: shipToPlay IsCollidingIn: aGame [
 	aCell checkCollisionIn: aGame
 ]
 
+{ #category : #'as yet unclassified' }
+Board >> distanceBetween: startingCell and: endingCell [
+
+	| startingCellIndex endingCellIndex |
+	startingCellIndex := cells indexOf: startingCell.
+	endingCellIndex := cells indexOf: endingCell.
+	^ endingCellIndex - startingCellIndex
+]
+
 { #category : #accessing }
 Board >> indexOfCellWith: aShip [
 
@@ -112,6 +121,22 @@ Board >> move: aShip by: anAmount [
 	nextCell := cells at: nextCellIndex.
 	actualCell leaves: aShip.
 	nextCell enters: aShip
+]
+
+{ #category : #'as yet unclassified' }
+Board >> move: aShip throughReversedWormholeStarting: startingCell ending: endingCell [
+
+	| distanceBetweenWormholes cellsToMove |
+	distanceBetweenWormholes := self
+		                            distanceBetween: startingCell
+		                            and: endingCell.
+
+	cellsToMove := (distanceBetweenWormholes negated % cells size)
+		               negated.
+
+	(self lapsOf: aShip) = 0
+		ifTrue: [ self moveToTheStart: aShip ]
+		ifFalse: [ self move: aShip by: cellsToMove ]
 ]
 
 { #category : #movement }
