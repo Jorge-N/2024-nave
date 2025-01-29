@@ -17,19 +17,28 @@ ReversedWormholeEffect class >> withStart: aWormholeCell withEnd: anotherWormhol
 { #category : #'cell effect' }
 ReversedWormholeEffect >> applyEffectTo: aShip in: aBoard [
 
-	| actualCell |
+	| actualCellIndex actualCell |
 	actualCell := aBoard whereIs: aShip.
-	aBoard
-		move: aShip
-		throughReversedWormholeStarting: actualCell
-		ending: wormholeEnd
+	actualCellIndex := aBoard indexOfCellWith: aShip.
+
+	actualCellIndex = wormholeStart
+		ifTrue: [
+			aBoard
+				move: aShip
+				throughReversedWormholeStartFrom: wormholeStart
+				to: wormholeEnd ]
+		ifFalse: [
+			aBoard
+				move: aShip
+				throughReversedWormholeEndFrom: wormholeEnd
+				to: wormholeStart ]
 ]
 
 { #category : #initialization }
-ReversedWormholeEffect >> initializeWithStart: aWormholeCell andEnd: anotherWormholeCell [
+ReversedWormholeEffect >> initializeWithStart: wormholeStartLocation andEnd: wormholeEndLocation [
 
-	wormholeStart := aWormholeCell.
-	wormholeEnd := anotherWormholeCell
+	wormholeStart := wormholeStartLocation.
+	wormholeEnd := wormholeEndLocation
 ]
 
 { #category : #'cell effect' }

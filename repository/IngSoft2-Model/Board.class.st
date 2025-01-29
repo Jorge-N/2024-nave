@@ -124,16 +124,22 @@ Board >> move: aShip by: anAmount [
 ]
 
 { #category : #'as yet unclassified' }
-Board >> move: aShip throughReversedWormholeStarting: startingCell ending: endingCell [
+Board >> move: aShip throughReversedWormholeEndFrom: startingCellIndex to: endingCellIndex [
 
 	| distanceBetweenWormholes cellsToMove |
-	distanceBetweenWormholes := self
-		                            distanceBetween: startingCell
-		                            and: endingCell.
+	distanceBetweenWormholes := startingCellIndex - endingCellIndex.
 
-	cellsToMove := (distanceBetweenWormholes negated % cells size)
-		               negated.
+	cellsToMove := cells size - distanceBetweenWormholes.
+	self move: aShip by: cellsToMove
+]
 
+{ #category : #'as yet unclassified' }
+Board >> move: aShip throughReversedWormholeStartFrom: startingCellIndex to: endingCellIndex [
+
+	| distanceBetweenWormholes cellsToMove |
+	distanceBetweenWormholes := endingCellIndex - startingCellIndex.
+
+	cellsToMove := (cells size - distanceBetweenWormholes) negated.
 	(self lapsOf: aShip) = 0
 		ifTrue: [ self moveToTheStart: aShip ]
 		ifFalse: [ self move: aShip by: cellsToMove ]

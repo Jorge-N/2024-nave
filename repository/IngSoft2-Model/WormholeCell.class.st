@@ -19,11 +19,17 @@ WormholeCell class >> newPairIn: someCells start: wormholeStartLocation end: wor
 	| firstWormhole secondWormhole |
 	firstWormhole := super new.
 	secondWormhole := super new.
-	firstWormhole initializeWith: secondWormhole.
-	secondWormhole initializeWith: firstWormhole.
+	firstWormhole
+		initializeWith: secondWormhole
+		starting: wormholeStartLocation
+		ending: wormholeEndLocation.
+	secondWormhole
+		initializeWith: firstWormhole
+		starting: wormholeStartLocation
+		ending: wormholeEndLocation.
 
-	someCells at: wormholeStartLocation put: (firstWormhole).
-	someCells at: wormholeEndLocation put: (secondWormhole)
+	someCells at: wormholeStartLocation put: firstWormhole.
+	someCells at: wormholeEndLocation put: secondWormhole
 ]
 
 { #category : #'cell effect' }
@@ -33,9 +39,11 @@ WormholeCell >> applyEffectTo: aShip in: aBoard [
 ]
 
 { #category : #initialization }
-WormholeCell >> initializeWith: aWormholeCell [
+WormholeCell >> initializeWith: aWormholeCell starting: wormholeStartLocation ending: wormholeEndLocation [
 
-	currentEffect := NormalWormholeEffect withStart: self withEnd: aWormholeCell .
+	currentEffect := NormalWormholeEffect
+		                 withStart: wormholeStartLocation
+		                 withEnd: wormholeEndLocation.
 	wormholeEnd := aWormholeCell
 ]
 

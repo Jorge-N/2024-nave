@@ -24,10 +24,10 @@ NormalWormholeEffect >> applyEffectTo: aShip in: aBoard [
 ]
 
 { #category : #initialization }
-NormalWormholeEffect >> initializeWithStart: aWormholeCell andEnd: anotherWormholeCell [
+NormalWormholeEffect >> initializeWithStart: wormholeStartLocation andEnd: wormholeEndLocation [
 
-	wormholeStart := aWormholeCell.
-	wormholeEnd := anotherWormholeCell
+	wormholeStart := wormholeStartLocation.
+	wormholeEnd := wormholeEndLocation
 ]
 
 { #category : #'cell effect' }
