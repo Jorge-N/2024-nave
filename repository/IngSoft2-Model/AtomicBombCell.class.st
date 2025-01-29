@@ -10,3 +10,9 @@ AtomicBombCell >> applyEffectTo: aShip in: aBoard [
 	aBoard removeShieldFromAllShips.
 	aBoard moveAllShipsToTheStart
 ]
+
+{ #category : #'as yet unclassified' }
+AtomicBombCell >> reverseEffect [
+
+	
+]

@@ -9,3 +9,9 @@ NormalCell >> applyEffectTo: aShip in: aBoard [
 
 	
 ]
+
+{ #category : #'as yet unclassified' }
+NormalCell >> reverseEffect [
+
+	
+]
