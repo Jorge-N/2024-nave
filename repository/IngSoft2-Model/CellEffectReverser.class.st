@@ -8,19 +8,14 @@ Class {
 }
 
 { #category : #accessing }
-CellEffectReverser class >> to: aCell [
+CellEffectReverser class >> to: aCell createdBy: aCard [
 
-	^ self new initializeWith: aCell
+	^ self new initializeWith: aCard onCell: aCell
 ]
 
 { #category : #initialization }
-CellEffectReverser >> initializeWith: aCell [
+CellEffectReverser >> initializeWith: aCard onCell: aCell [
 
-	createdBy := aCell.
-]
-
-{ #category : #'as yet unclassified' }
-CellEffectReverser >> reverseEffectOf: aCell [
-
-	aCell reverseEffect
+	createdBy := aCard.
+	cell := aCell
 ]

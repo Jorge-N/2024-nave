@@ -11,6 +11,7 @@ ReversalCard >> useWith: aCardManager target: aCell [
 		ifTrue: [ Error signal: 'this cell is already reversed!' ]
 		ifFalse: [
 			aCardManager verifyIsCardPlayerTurn.
-			aCardManager addCardEffect: (CellEffectReverser to: aCell).
+			aCardManager addCardEffect:
+				(CellEffectReverser to: aCell createdBy: self).
 			aCell reverseEffect ]
 ]
