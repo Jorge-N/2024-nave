@@ -129,6 +129,20 @@ CardManager >> repeatLastCellEffectTo: aShipName [
 	board applyLastEffectTo: aShipName
 ]
 
+{ #category : #'cell effect' }
+CardManager >> reverseEffectOf: aCell [
+
+	| reversalCardEffect |
+	reversalCardEffect := activeCardEffects
+		                      detect: [ :eachCardEffect |
+		                      eachCardEffect wasCreatedBy: aCell ]
+		                      ifNone: [ ^ aCell ].
+
+	reversalCardEffect ifNotNil: [
+		aCell isReversed ifFalse: [ aCell reverseEffect ] ].
+	^ aCell
+]
+
 { #category : #'helper methods' }
 CardManager >> verifyIsCardPlayerTurn [
 	

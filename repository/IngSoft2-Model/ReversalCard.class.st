@@ -7,6 +7,10 @@ Class {
 { #category : #'card effect' }
 ReversalCard >> useWith: aCardManager target: aCell [
 
-	aCardManager verifyIsCardPlayerTurn.
-	aCell reverseEffect
+	aCell isReversed
+		ifTrue: [ Error signal: 'this cell is already reversed!' ]
+		ifFalse: [
+			aCardManager verifyIsCardPlayerTurn.
+			aCardManager addCardEffect: (CellEffectReverser to: aCell).
+			aCell reverseEffect ]
 ]

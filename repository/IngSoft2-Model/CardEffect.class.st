@@ -31,6 +31,12 @@ CardEffect >> mercenaryCollideWith: possibleMercenaryName [
 	^ false
 ]
 
+{ #category : #'as yet unclassified' }
+CardEffect >> reverseEffectOf: aCell [
+
+	
+]
+
 { #category : #'helper methods' }
 CardEffect >> wasCreatedBy: aCard [
 
