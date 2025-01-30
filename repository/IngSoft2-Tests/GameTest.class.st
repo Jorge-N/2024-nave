@@ -1027,7 +1027,7 @@ GameTest >> testWhenAShipPlaysAReversalCardOnAMoonwalkCellTheReversedEffectIsPre
 ]
 
 { #category : #tests }
-GameTest >> testWhenAShipPlaysAReversalCardOnAReversedMoonwalkCellItShouldMoveAllShipsExceptItOneCellForwards [
+GameTest >> testWhenAShipPlaysAReversalCardOnAReversedMoonwalkCellItShouldThrowAnError [
 
 	| aShip someShips aGame someDice someCells anotherShip yetAnotherShip cardsToDraw deck aReversalCard aCell anotherReversalCard |
 	aShip := 'test-ship-1'.
@@ -1068,12 +1068,11 @@ GameTest >> testWhenAShipPlaysAReversalCardOnAReversedMoonwalkCellItShouldMoveAl
 	anotherReversalCard := deck second.
 	aCell := someCells seventh.
 	aGame playCard: aReversalCard by: aShip target: aCell.
-	aGame playCard: anotherReversalCard by: aShip target: aCell.
-	aGame throwDice.
-
-	self assert: (aGame indexOfCellWith: aShip) equals: 7.
-	self assert: (aGame indexOfCellWith: anotherShip) equals: 9.
-	self assert: (aGame indexOfCellWith: yetAnotherShip) equals: 9
+	self
+		should: [
+		aGame playCard: anotherReversalCard by: aShip target: aCell ]
+		raise: Error
+		withMessage: 'this cell is already reversed!'
 ]
 
 { #category : #tests }
