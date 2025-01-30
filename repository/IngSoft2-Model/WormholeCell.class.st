@@ -41,6 +41,7 @@ WormholeCell >> applyEffectTo: aShip in: aBoard [
 { #category : #initialization }
 WormholeCell >> initializeWith: aWormholeCell starting: wormholeStartLocation ending: wormholeEndLocation [
 
+	reversed := false.
 	currentEffect := NormalWormholeEffect
 		                 withStart: wormholeStartLocation
 		                 withEnd: wormholeEndLocation.
@@ -50,5 +51,8 @@ WormholeCell >> initializeWith: aWormholeCell starting: wormholeStartLocation en
 { #category : #'cell effect' }
 WormholeCell >> reverseEffect [
 
-	currentEffect := currentEffect reverse
+	currentEffect := currentEffect reverse.
+	reversed := reversed
+		            ifTrue: [ false ]
+		            ifFalse: [ true ]
 ]

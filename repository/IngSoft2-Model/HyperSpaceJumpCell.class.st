@@ -17,11 +17,15 @@ HyperSpaceJumpCell >> applyEffectTo: aShip in: aBoard [
 HyperSpaceJumpCell >> initialize [
 
 	ships := OrderedCollection new.
+	reversed := false.
 	currentEffect := NormalHyperSpaceJumpEffect new
 ]
 
 { #category : #'as yet unclassified' }
 HyperSpaceJumpCell >> reverseEffect [
 
-	currentEffect := currentEffect reverse
+	currentEffect := currentEffect reverse.
+	reversed := reversed
+		            ifTrue: [ false ]
+		            ifFalse: [ true ]
 ]

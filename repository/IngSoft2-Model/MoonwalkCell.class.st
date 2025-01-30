@@ -22,11 +22,15 @@ MoonwalkCell >> applyEffectTo: aShip in: aBoard [
 { #category : #initialization }
 MoonwalkCell >> initializeWith: aNumberOfTimes [
 
+	reversed := false.
 	currentEffect := NormalMoonwalkEffect times: aNumberOfTimes
 ]
 
 { #category : #'as yet unclassified' }
 MoonwalkCell >> reverseEffect [
 
-	currentEffect := currentEffect reverse
+	currentEffect := currentEffect reverse.
+	reversed := reversed
+		            ifTrue: [ false ]
+		            ifFalse: [ true ]
 ]

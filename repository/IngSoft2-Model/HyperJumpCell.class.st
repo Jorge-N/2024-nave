@@ -22,11 +22,15 @@ HyperJumpCell >> applyEffectTo: aShip in: aBoard [
 { #category : #initialization }
 HyperJumpCell >> initializeWith: someLengths [
 
-	currentEffect := NormalHyperJumpEffect withLengths: someLengths
+	currentEffect := NormalHyperJumpEffect withLengths: someLengths.
+	reversed := false
 ]
 
 { #category : #'as yet unclassified' }
 HyperJumpCell >> reverseEffect [
 
-	currentEffect := currentEffect reverse
+	currentEffect := currentEffect reverse.
+	reversed := reversed
+		            ifTrue: [ false ]
+		            ifFalse: [ true ]
 ]

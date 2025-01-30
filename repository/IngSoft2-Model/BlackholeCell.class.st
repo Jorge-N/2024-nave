@@ -17,11 +17,15 @@ BlackholeCell >> applyEffectTo: aShip in: aBoard [
 BlackholeCell >> initialize [
 
 	ships := OrderedCollection new.
-	currentEffect := NormalBlackholeEffect new
+	currentEffect := NormalBlackholeEffect new.
+	reversed := false
 ]
 
 { #category : #'as yet unclassified' }
 BlackholeCell >> reverseEffect [
 
-	currentEffect := currentEffect reverse
+	currentEffect := currentEffect reverse.
+	reversed := reversed
+		            ifTrue: [ false ]
+		            ifFalse: [ true ]
 ]

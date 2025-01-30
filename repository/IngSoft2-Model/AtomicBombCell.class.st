@@ -11,7 +11,7 @@ AtomicBombCell >> applyEffectTo: aShip in: aBoard [
 	aBoard moveAllShipsToTheStart
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'cell effect' }
 AtomicBombCell >> reverseEffect [
 
 	
