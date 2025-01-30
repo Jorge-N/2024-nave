@@ -14,5 +14,5 @@ ReversedHyperSpaceJumpEffect >> applyEffectTo: aShip in: aBoard [
 { #category : #'cell effect' }
 ReversedHyperSpaceJumpEffect >> reverse [
 
-	^ NormalHyperSpaceJumpEffect new
+	Error signal: 'this cell is already reversed!'
 ]

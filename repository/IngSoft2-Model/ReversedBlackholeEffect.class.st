@@ -13,5 +13,5 @@ ReversedBlackholeEffect >> applyEffectTo: aShip in: aBoard [
 { #category : #'cell effect' }
 ReversedBlackholeEffect >> reverse [
 
-	^ NormalBlackholeEffect new
+	Error signal: 'this cell is already reversed!'
 ]

@@ -28,5 +28,5 @@ ReversedCardGivingEffect >> initializeWith: aDeck [
 { #category : #'cell effect' }
 ReversedCardGivingEffect >> reverse [
 
-	^ NormalCardGivingEffect deck: deck
+	Error signal: 'this cell is already reversed!'
 ]

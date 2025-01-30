@@ -44,5 +44,5 @@ ReversedWormholeEffect >> initializeWithStart: wormholeStartLocation andEnd: wor
 { #category : #'cell effect' }
 ReversedWormholeEffect >> reverse [
 
-	^ NormalWormholeEffect withStart: wormholeStart withEnd: wormholeEnd
+	Error signal: 'this cell is already reversed!'
 ]

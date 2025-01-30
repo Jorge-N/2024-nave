@@ -32,5 +32,5 @@ ReversedHyperJumpEffect >> initializeWith: aCollectionOfLengths [
 { #category : #'cell effect' }
 ReversedHyperJumpEffect >> reverse [
 
-	^ NormalHyperJumpEffect withLengths: lengths
+	Error signal: 'this cell is already reversed!'
 ]
