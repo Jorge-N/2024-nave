@@ -13,19 +13,21 @@ HyperSpaceJumpCell >> applyEffectTo: aShip in: aBoard [
 	currentEffect applyEffectTo: aShip in: aBoard
 ]
 
+{ #category : #'as yet unclassified' }
+HyperSpaceJumpCell >> backToNormalEffect [
+
+	currentEffect := NormalHyperSpaceJumpEffect new
+]
+
 { #category : #initialization }
 HyperSpaceJumpCell >> initialize [
 
 	ships := OrderedCollection new.
-	reversed := false.
 	currentEffect := NormalHyperSpaceJumpEffect new
 ]
 
 { #category : #'as yet unclassified' }
 HyperSpaceJumpCell >> reverseEffect [
 
-	currentEffect := currentEffect reverse.
-	reversed := reversed
-		            ifTrue: [ false ]
-		            ifFalse: [ true ]
+	currentEffect := currentEffect reverse
 ]

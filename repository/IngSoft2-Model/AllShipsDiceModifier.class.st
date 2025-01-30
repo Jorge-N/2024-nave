@@ -22,3 +22,9 @@ AllShipsDiceModifier >> initializeWith: aCard [
 	createdBy := aCard.
 	^ self
 ]
+
+{ #category : #'as yet unclassified' }
+AllShipsDiceModifier >> revertEffect [
+
+	
+]

@@ -2,7 +2,8 @@ Class {
 	#name : #HyperJumpCell,
 	#superclass : #Cell,
 	#instVars : [
-		'currentEffect'
+		'currentEffect',
+		'lengths'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -19,18 +20,21 @@ HyperJumpCell >> applyEffectTo: aShip in: aBoard [
 	currentEffect applyEffectTo: aShip in: aBoard
 ]
 
+{ #category : #'as yet unclassified' }
+HyperJumpCell >> backToNormalEffect [
+
+	currentEffect := NormalHyperJumpEffect withLengths: lengths
+]
+
 { #category : #initialization }
 HyperJumpCell >> initializeWith: someLengths [
 
-	currentEffect := NormalHyperJumpEffect withLengths: someLengths.
-	reversed := false
+	lengths := someLengths.
+	currentEffect := NormalHyperJumpEffect withLengths: someLengths
 ]
 
 { #category : #'as yet unclassified' }
 HyperJumpCell >> reverseEffect [
 
-	currentEffect := currentEffect reverse.
-	reversed := reversed
-		            ifTrue: [ false ]
-		            ifFalse: [ true ]
+	currentEffect := currentEffect reverse
 ]

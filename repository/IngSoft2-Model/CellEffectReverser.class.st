@@ -19,3 +19,15 @@ CellEffectReverser >> initializeWith: aCard onCell: aCell [
 	createdBy := aCard.
 	cell := aCell
 ]
+
+{ #category : #'cell effect' }
+CellEffectReverser >> reverseEffect [
+
+	cell reverseEffect
+]
+
+{ #category : #'as yet unclassified' }
+CellEffectReverser >> revertEffect [
+
+	cell backToNormalEffect
+]

@@ -697,7 +697,7 @@ GameTest >> testWhenAShipPlaysACancellationCardOnAReversalCardThenTheReversedEff
 	deck := aGame cardsOf: aShip.
 	aReversalCard := deck first.
 	aCancellationCard := deck second.
-	aCell := someCells second.
+	aCell := someCells fifth.
 	aGame playCard: aReversalCard by: aShip target: aCell.
 	aGame playCard: aCancellationCard by: aShip target: aReversalCard.
 	aGame throwDice.

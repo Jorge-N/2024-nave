@@ -32,9 +32,9 @@ CardEffect >> mercenaryCollideWith: possibleMercenaryName [
 ]
 
 { #category : #'as yet unclassified' }
-CardEffect >> reverseEffectOf: aCell [
+CardEffect >> revertEffect [
 
-	
+	self subclassResponsibility
 ]
 
 { #category : #'helper methods' }

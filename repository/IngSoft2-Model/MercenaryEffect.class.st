@@ -41,3 +41,9 @@ MercenaryEffect >> mercenaryCollideWith: possibleMercenaryName [
 
 	^ possibleMercenaryName = toShip name
 ]
+
+{ #category : #'as yet unclassified' }
+MercenaryEffect >> revertEffect [
+
+	
+]

@@ -3,7 +3,9 @@ Class {
 	#superclass : #Cell,
 	#instVars : [
 		'wormholeEnd',
-		'currentEffect'
+		'currentEffect',
+		'wormholeEndIndex',
+		'wormholeStartIndex'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -38,21 +40,27 @@ WormholeCell >> applyEffectTo: aShip in: aBoard [
 	currentEffect applyEffectTo: aShip in: aBoard
 ]
 
+{ #category : #'as yet unclassified' }
+WormholeCell >> backToNormalEffect [
+
+	currentEffect := NormalWormholeEffect
+		                 withStart: wormholeStartIndex
+		                 withEnd: wormholeEndIndex
+]
+
 { #category : #initialization }
 WormholeCell >> initializeWith: aWormholeCell starting: wormholeStartLocation ending: wormholeEndLocation [
 
-	reversed := false.
 	currentEffect := NormalWormholeEffect
 		                 withStart: wormholeStartLocation
 		                 withEnd: wormholeEndLocation.
+	wormholeStartIndex := wormholeStartLocation.
+	wormholeEndIndex := wormholeEndLocation.
 	wormholeEnd := aWormholeCell
 ]
 
 { #category : #'cell effect' }
 WormholeCell >> reverseEffect [
 
-	currentEffect := currentEffect reverse.
-	reversed := reversed
-		            ifTrue: [ false ]
-		            ifFalse: [ true ]
+	currentEffect := currentEffect reverse
 ]

@@ -26,21 +26,23 @@ CardGivingCell >> applyEffectTo: aShip in: aBoard [
 	currentEffect applyEffectTo: aShip in: aBoard
 ]
 
+{ #category : #'as yet unclassified' }
+CardGivingCell >> backToNormalEffect [
+
+	currentEffect := NormalCardGivingEffect deck: deck
+]
+
 { #category : #initialization }
 CardGivingCell >> initializeWith: aDeck [
 
 	ships := OrderedCollection new.
 	deck := aDeck.
 	currentEffect := NormalCardGivingEffect deck: aDeck.
-	reversed := false.
 	^ self
 ]
 
 { #category : #'cell effect' }
 CardGivingCell >> reverseEffect [
 
-	currentEffect := currentEffect reverse.
-	reversed := reversed
-		            ifTrue: [ false ]
-		            ifFalse: [ true ]
+	currentEffect := currentEffect reverse
 ]

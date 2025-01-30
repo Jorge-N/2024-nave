@@ -12,6 +12,12 @@ AtomicBombCell >> applyEffectTo: aShip in: aBoard [
 ]
 
 { #category : #'cell effect' }
+AtomicBombCell >> backToNormalEffect [
+
+	
+]
+
+{ #category : #'cell effect' }
 AtomicBombCell >> reverseEffect [
 
 	
