@@ -25,8 +25,8 @@ ReversedMoonwalkEffect >> initializeWith: aNumberOfTimes [
 	times := aNumberOfTimes
 ]
 
-{ #category : #highlighting }
+{ #category : #'cell effect' }
 ReversedMoonwalkEffect >> reverse [
 
-	^ NormalMoonwalkEffect times: times
+	Error signal: 'this cell is already reversed!'
 ]

@@ -70,15 +70,6 @@ Board >> checkIf: shipToPlay IsCollidingIn: aGame [
 	aCell checkCollisionIn: aGame
 ]
 
-{ #category : #'as yet unclassified' }
-Board >> distanceBetween: startingCell and: endingCell [
-
-	| startingCellIndex endingCellIndex |
-	startingCellIndex := cells indexOf: startingCell.
-	endingCellIndex := cells indexOf: endingCell.
-	^ endingCellIndex - startingCellIndex
-]
-
 { #category : #accessing }
 Board >> indexOfCellWith: aShip [
 

@@ -2,8 +2,7 @@ Class {
 	#name : #Cell,
 	#superclass : #Object,
 	#instVars : [
-		'ships',
-		'reversed'
+		'ships'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -42,20 +41,13 @@ Cell >> includes: aShip [
 { #category : #initialization }
 Cell >> initialize [
 
-	ships := OrderedCollection new.
-	reversed := false
+	ships := OrderedCollection new
 ]
 
 { #category : #accessing }
 Cell >> isOccupied [
 
 	^ ships notEmpty
-]
-
-{ #category : #testing }
-Cell >> isReversed [
-
-	^ reversed
 ]
 
 { #category : #accessing }

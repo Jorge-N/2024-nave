@@ -111,6 +111,7 @@ CardManager >> removeEffectOf: aCard [
 		                  eachEffect wasCreatedBy: aCard ]
 		                  ifNone: [
 		                  Error signal: 'no such card in active cards!' ].
+	effectToRemove revertEffect.
 	activeCardEffects remove: effectToRemove
 ]
 
@@ -127,20 +128,6 @@ CardManager >> repeatLastCardWithTarget: aTarget [
 CardManager >> repeatLastCellEffectTo: aShipName [
 
 	board applyLastEffectTo: aShipName
-]
-
-{ #category : #'cell effect' }
-CardManager >> reverseEffectOf: aCell [
-
-	| reversalCardEffect |
-	reversalCardEffect := activeCardEffects
-		                      detect: [ :eachCardEffect |
-		                      eachCardEffect wasCreatedBy: aCell ]
-		                      ifNone: [ ^ aCell ].
-
-	reversalCardEffect ifNotNil: [
-		aCell isReversed ifFalse: [ aCell reverseEffect ] ].
-	^ aCell
 ]
 
 { #category : #'helper methods' }
