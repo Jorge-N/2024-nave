@@ -663,6 +663,49 @@ GameTest >> testWhenAShipLandsInACardGivingCellTheShipShouldHaveOneMoreCard [
 ]
 
 { #category : #tests }
+GameTest >> testWhenAShipPlaysACancellationCardOnAReversalCardThenTheReversedEffectOfTheCellShouldBeCancelled [
+
+	| aShip someShips aGame someDice someCells cardsToDraw deck aReversalCard aCell aCancellationCard |
+	aShip := 'test-ship-1'.
+	someShips := OrderedCollection with: aShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence: #( 4 ) asOrderedCollection)).
+	cardsToDraw := OrderedCollection
+		               with: ReversalCard new
+		               with: CancellationCard new.
+	someCells := OrderedCollection new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: BlackholeCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 2
+		         using: someDice
+		         withCells: someCells size
+		         wormholeStart: 8
+		         wormholeEnd: 9
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator cells: someCells)
+		         deck: (LoadedDeck cards: cardsToDraw).
+	deck := aGame cardsOf: aShip.
+	aReversalCard := deck first.
+	aCancellationCard := deck second.
+	aCell := someCells second.
+	aGame playCard: aReversalCard by: aShip target: aCell.
+	aGame playCard: aCancellationCard by: aShip target: aReversalCard.
+	aGame throwDice.
+
+	self assert: (aGame indexOfCellWith: aShip) equals: 1
+]
+
+{ #category : #tests }
 GameTest >> testWhenAShipPlaysAReversalCardOnABlackholeCellAndLandsOnItItShouldMoveFourCells [
 
 	| aShip someShips aGame someDice someCells cardsToDraw deck aReversalCard aCell |
