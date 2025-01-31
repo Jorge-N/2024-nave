@@ -888,7 +888,7 @@ GameTest >> testWhenAShipPlaysAReversalCardOnAHyperSpaceJumpCellItShouldAddOneSh
 	someShips := OrderedCollection with: aShip.
 	someDice := Dice withAll:
 		            (Set with:
-			             (LoadedDie sequence: #( 1 0 1 ) asOrderedCollection)).
+			             (LoadedDie sequence: #( 1 0 1 1 ) asOrderedCollection)).
 
 	cardsToDraw := OrderedCollection
 		               with: ReversalCard new
@@ -924,8 +924,9 @@ GameTest >> testWhenAShipPlaysAReversalCardOnAHyperSpaceJumpCellItShouldAddOneSh
 	aGame throwDice.
 	aGame throwDice.
 	aGame throwDice.
+	aGame throwDice. "Should let the ship move one cell"
 
-	self assert: (aGame indexOfCellWith: aShip) equals: 7
+	self assert: (aGame indexOfCellWith: aShip) equals: 8
 ]
 
 { #category : #tests }
