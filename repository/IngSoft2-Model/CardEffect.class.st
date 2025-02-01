@@ -26,6 +26,12 @@ CardEffect >> is: aShip mercenaryOf: anotherShip [
 ]
 
 { #category : #'helper methods' }
+CardEffect >> is: aShip protectorOf: anotherShip [
+
+	^ false
+]
+
+{ #category : #'helper methods' }
 CardEffect >> mercenaryCollideWith: possibleMercenaryName [
 
 	^ false

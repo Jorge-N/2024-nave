@@ -86,6 +86,13 @@ CardManager >> is: aShip mercenaryOf: anotherShip [
 		  eachEffect is: aShip mercenaryOf: anotherShip ]
 ]
 
+{ #category : #testing }
+CardManager >> is: aShip protectorOf: anotherShip [
+
+	^ activeCardEffects anySatisfy: [ :eachEffect |
+		  eachEffect is: aShip protectorOf: anotherShip ]
+]
+
 { #category : #accessing }
 CardManager >> mercenariesOf: aShip [
 

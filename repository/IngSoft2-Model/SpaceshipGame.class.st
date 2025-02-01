@@ -99,7 +99,7 @@ SpaceshipGame >> cardsOf: aShipName [
 { #category : #'turn logic' }
 SpaceshipGame >> handleBattleBetween: actualShip and: collidingShip [
 
-	| actualShipDiceResult collidingShipDiceResult loserShip loserShipAllies allLosers |
+	| actualShipDiceResult collidingShipDiceResult loserShip loserShipAllies loserShipProtectors firstProtector |
 	actualShipDiceResult := dice throw
 	                        +
 	                        (cardManager
@@ -116,10 +116,22 @@ SpaceshipGame >> handleBattleBetween: actualShip and: collidingShip [
 		             ifFalse: [ actualShip ].
 
 	loserShipAllies := cardManager mercenariesOf: loserShip.
-	allLosers := loserShipAllies copyWith: loserShip.
-	allLosers do: [ :eachLoser |
-		eachLoser removeShield.
-		board moveToTheStart: eachLoser ]
+	loserShipProtectors := cardManager protectorsOf: loserShip.
+
+	loserShipAllies ifNotEmpty: [
+		loserShipAllies do: [ :eachAlly |
+			eachAlly removeShield.
+			board moveToTheStart: eachAlly ] ].
+
+	loserShipProtectors
+		ifEmpty: [ loserShip removeShield ]
+		ifNotEmpty: [
+			firstProtector := loserShipProtectors first.
+			firstProtector receiveBattleDamageIn: board.
+			loserShipProtectors remove: firstProtector.
+			loserShipProtectors addLast: firstProtector ].
+
+	board moveToTheStart: loserShip
 ]
 
 { #category : #'turn logic' }
