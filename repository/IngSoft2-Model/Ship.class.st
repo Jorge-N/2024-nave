@@ -61,6 +61,12 @@ Ship >> receive: aCard [
 	cards add: aCard
 ]
 
+{ #category : #'shields logic' }
+Ship >> receiveBattleDamageIn: aBoard [ 
+	self removeShield.
+	shields = 0 ifTrue: [ aBoard moveToTheStart: self ]
+]
+
 { #category : #'deck logic' }
 Ship >> removeFromDeck: aCard [
 

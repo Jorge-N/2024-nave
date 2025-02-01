@@ -46,6 +46,20 @@ CardManager >> assignMercenaryShipToCardPlayer: aNewMercenaryName by: aCard [
 			 to: newMercenary)
 ]
 
+{ #category : #'card effect' }
+CardManager >> assignProtectorShipToCardPlayer: aNewProtectorName by: aProtectorCard [
+
+	| newProtector |
+	actualShipPlayingCard name = aNewProtectorName ifTrue: [
+		Error signal: 'you cannot target yourself as a Protector!' ].
+	newProtector := ships detect: [ :eachShip |
+		                eachShip name = aNewProtectorName ].
+	activeCardEffects add: (ProtectorEffect
+			 createdBy: aProtectorCard
+			 from: actualShipPlayingCard
+			 to: newProtector)
+]
+
 { #category : #'helper methods' }
 CardManager >> checkIf: actualShip shouldBattleWith: collidingShip in: aGame [
 
@@ -107,6 +121,12 @@ CardManager >> playCard: aCard by: aShip target: aTarget [
 	aCard useWith: self target: aTarget.
 	lastUsedCard := aCard usedCardWith: lastUsedCard.
 	aShip removeFromDeck: aCard
+]
+
+{ #category : #accessing }
+CardManager >> protectorsOf: aShip [
+
+	^ ships select: [ :eachShip | self is: aShip protectorOf: eachShip ]
 ]
 
 { #category : #removing }

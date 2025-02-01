@@ -22,3 +22,13 @@ ProtectorEffect >> initializeWith: aCreatedBy from: aFromShip to: aToShip [
 	toShip := aToShip.
 	^ self
 ]
+
+{ #category : #'helper methods' }
+ProtectorEffect >> is: aShip protectorOf: anotherShip [
+
+	^ (toShip = anotherShip and: fromShip = aShip)
+]
+
+{ #category : #'helper methods' }
+ProtectorEffect >> revertEffect [
+]
