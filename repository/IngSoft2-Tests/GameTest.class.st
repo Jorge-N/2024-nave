@@ -759,9 +759,9 @@ GameTest >> testWhenAShipPlaysAProtectorCardOnAnotherShipAndThenLosesABattleThre
 		             with: aShip
 		             with: anotherShip
 		             with: yetAnotherShip.
-	someDice := Dice withAll: (Set with:
-			             (LoadedDie sequence:
-				              #( 3 3 5 6 1 3 6 5 0 0 3 6 5 0 10 ) asOrderedCollection)).
+	someDice := Dice withAll: (Set with: (LoadedDie sequence:
+				              #( 3 3 5 6 1 3 6 5 0 0 3 6 5 0 10 )
+					              asOrderedCollection)).
 	cardsToDraw := OrderedCollection
 		               with: ProtectorCard new
 		               with: ProtectorCard new.
@@ -794,17 +794,17 @@ GameTest >> testWhenAShipPlaysAProtectorCardOnAnotherShipAndThenLosesABattleThre
 	aGame throwDice.
 	aGame throwDice.
 	aGame throwDice.
-	
+
 	aGame throwDice.
 	aGame throwDice.
 	aGame throwDice.
-	
+
 	aGame throwDice.
 	aGame throwDice.
 	aGame throwDice.
-	
+
 	self assert: (aGame indexOfCellWith: aShip) equals: 1.
-	self assert: (aGame indexOfCellWith: yetAnotherShip ) equals: 1.
+	self assert: (aGame indexOfCellWith: yetAnotherShip) equals: 1
 ]
 
 { #category : #tests }
@@ -818,8 +818,7 @@ GameTest >> testWhenAShipPlaysAProtectorCardOnAnotherShipAndThenLosesABattleThre
 		             with: aShip
 		             with: anotherShip
 		             with: yetAnotherShip.
-	someDice := Dice withAll: (Set with:
-			             (LoadedDie sequence:
+	someDice := Dice withAll: (Set with: (LoadedDie sequence:
 				              #( 3 3 5 6 1 3 6 5 0 0 3 6 5 ) asOrderedCollection)).
 	cardsToDraw := OrderedCollection
 		               with: ProtectorCard new
@@ -853,14 +852,14 @@ GameTest >> testWhenAShipPlaysAProtectorCardOnAnotherShipAndThenLosesABattleThre
 	aGame throwDice.
 	aGame throwDice.
 	aGame throwDice.
-	
+
 	aGame throwDice.
 	aGame throwDice.
 	aGame throwDice.
-	
+
 	aGame throwDice.
-	
-	self assert: (aGame indexOfCellWith: yetAnotherShip ) equals: 1.
+
+	self assert: (aGame indexOfCellWith: yetAnotherShip) equals: 1
 ]
 
 { #category : #tests }
