@@ -749,6 +749,71 @@ GameTest >> testWhenAShipPlaysACancellationCardOnAReversalCardThenTheReversedEff
 ]
 
 { #category : #tests }
+GameTest >> testWhenAShipPlaysAProtectorCardOnAnotherShipAndTheProtectorIsPenalizedTheCardPlayerShouldLoseShields [
+
+	| aShip aGame someShips someDice cardsToDraw someCells aProtectorCard anotherShip someCards aMercenaryCard aCancellationCard someOtherCards |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	someShips := OrderedCollection with: aShip with: anotherShip.
+	someDice := Dice withAll: (Set with:
+			             (LoadedDie sequence:
+				              #( 1 1 0 2 6 10 9 0 100 ) asOrderedCollection)).
+	cardsToDraw := OrderedCollection
+		               with: ProtectorCard new
+		               with: MercenaryCard new
+		               with: CancellationCard new
+		               with: CancellationCard new.
+
+	someCells := OrderedCollection new.
+	someCells add: NormalCell new.
+	someCells add: AtomicBombCell new.
+	someCells add: HyperSpaceJumpCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 10
+		         using: someDice
+		         withCells: someCells size
+		         wormholeStart: 9
+		         wormholeEnd: 10
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator cells: someCells)
+		         deck: (LoadedDeck cards: cardsToDraw).
+
+	someCards := aGame cardsOf: aShip.
+	aProtectorCard := someCards first.
+	aMercenaryCard := someCards second.
+	someOtherCards := aGame cardsOf: anotherShip.
+	aCancellationCard := someOtherCards first.
+
+	aGame playCard: aMercenaryCard by: aShip target: anotherShip.
+
+	aGame throwDice.
+	aGame throwDice.
+	aGame throwDice.
+	aGame throwDice.
+
+	aGame
+		playCard: aCancellationCard
+		by: anotherShip
+		target: aMercenaryCard.
+	aGame playCard: aProtectorCard by: aShip target: anotherShip.
+
+	aGame throwDice.
+	aGame throwDice.
+	aGame throwDice.
+
+	self assert: (aGame indexOfCellWith: aShip) equals: 1.
+]
+
+{ #category : #tests }
 GameTest >> testWhenAShipPlaysAProtectorCardOnAnotherShipAndThenLosesABattleThreeTimesInARowTheProtectorShouldBePenalized [
 
 	| aShip aGame someShips someDice cardsToDraw someCells aProtectorCard anotherShip yetAnotherShip someCards |

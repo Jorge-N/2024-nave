@@ -127,7 +127,9 @@ SpaceshipGame >> handleBattleBetween: actualShip and: collidingShip [
 		ifEmpty: [ loserShip removeShield ]
 		ifNotEmpty: [
 			firstProtector := loserShipProtectors first.
-			firstProtector receiveBattleDamageIn: board.
+			firstProtector isPenalized
+				ifTrue: [ loserShip removeShield ]
+				ifFalse: [ firstProtector receiveBattleDamageIn: board ].
 			loserShipProtectors remove: firstProtector.
 			loserShipProtectors addLast: firstProtector ].
 
@@ -216,6 +218,14 @@ SpaceshipGame >> playCard: aCard by: aShipName target: aTarget [
 SpaceshipGame >> ranking [
 
 	^ board orderedShips collect: [ :ship | ship name ]
+]
+
+{ #category : #'as yet unclassified' }
+SpaceshipGame >> shieldsOf: aShipName [
+
+	| aShip |
+	aShip := ships detect: [ :eachShip | eachShip name = aShipName ].
+	^ aShip shields
 ]
 
 { #category : #'helper methods' }

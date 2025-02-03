@@ -39,6 +39,12 @@ Ship >> initializeWith: aName cards: someCards [
 	^ self
 ]
 
+{ #category : #testing }
+Ship >> isPenalized [
+
+	^ penalty > 0
+]
+
 { #category : #accessing }
 Ship >> name [
 
@@ -62,7 +68,8 @@ Ship >> receive: aCard [
 ]
 
 { #category : #'shields logic' }
-Ship >> receiveBattleDamageIn: aBoard [ 
+Ship >> receiveBattleDamageIn: aBoard [
+
 	self removeShield.
 	shields = 0 ifTrue: [ aBoard moveToTheStart: self ]
 ]
@@ -84,6 +91,12 @@ Ship >> removeShield [
 Ship >> restoreShields [
 
 	shields := 3
+]
+
+{ #category : #accessing }
+Ship >> shields [
+
+	^ shields
 ]
 
 { #category : #'deck logic' }
