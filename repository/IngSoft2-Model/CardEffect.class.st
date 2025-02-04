@@ -37,6 +37,12 @@ CardEffect >> mercenaryCollideWith: possibleMercenaryName [
 	^ false
 ]
 
+{ #category : #removing }
+CardEffect >> removeEffect [
+
+	self subclassResponsibility 
+]
+
 { #category : #'as yet unclassified' }
 CardEffect >> revertEffect [
 

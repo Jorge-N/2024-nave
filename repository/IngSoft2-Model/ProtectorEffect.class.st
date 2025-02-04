@@ -29,6 +29,12 @@ ProtectorEffect >> is: aShip protectorOf: anotherShip [
 	^ (toShip = anotherShip and: fromShip = aShip)
 ]
 
+{ #category : #removing }
+ProtectorEffect >> removeEffect [
+
+	fromShip removeProtector: toShip
+]
+
 { #category : #'helper methods' }
 ProtectorEffect >> revertEffect [
 ]

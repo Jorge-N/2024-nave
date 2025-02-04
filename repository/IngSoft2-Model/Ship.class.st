@@ -94,6 +94,12 @@ Ship >> removeFromDeck: aCard [
 	cards remove: aCard
 ]
 
+{ #category : #removing }
+Ship >> removeProtector: aProtector [
+
+	protectors remove: aProtector
+]
+
 { #category : #'shields logic' }
 Ship >> removeShield [
 

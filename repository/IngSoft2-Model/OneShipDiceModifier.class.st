@@ -29,6 +29,10 @@ OneShipDiceModifier >> initializeWith: aTargetShipName createdBy: aCard [
 	^ self
 ]
 
+{ #category : #removing }
+OneShipDiceModifier >> removeEffect [
+]
+
 { #category : #'card effect' }
 OneShipDiceModifier >> revertEffect [
 

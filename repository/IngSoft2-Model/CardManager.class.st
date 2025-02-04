@@ -141,6 +141,7 @@ CardManager >> removeEffectOf: aCard [
 		                  ifNone: [
 		                  Error signal: 'no such card in active cards!' ].
 	effectToRemove revertEffect.
+	effectToRemove removeEffect.
 	activeCardEffects remove: effectToRemove
 ]
 

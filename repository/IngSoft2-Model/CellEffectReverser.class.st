@@ -20,6 +20,11 @@ CellEffectReverser >> initializeWith: aCard onCell: aCell [
 	cell := aCell
 ]
 
+{ #category : #removing }
+CellEffectReverser >> removeEffect [
+
+]
+
 { #category : #'cell effect' }
 CellEffectReverser >> reverseEffect [
 
