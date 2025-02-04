@@ -130,7 +130,7 @@ SpaceshipGame >> handleBattleBetween: actualShip and: collidingShip [
 			firstProtector isPenalized
 				ifTrue: [ loserShip removeShield ]
 				ifFalse: [ firstProtector receiveBattleDamageIn: board ].
-			loserShipProtectors remove: firstProtector.
+			loserShipProtectors removeFirst.
 			loserShipProtectors addLast: firstProtector ].
 
 	board moveToTheStart: loserShip
@@ -220,7 +220,7 @@ SpaceshipGame >> ranking [
 	^ board orderedShips collect: [ :ship | ship name ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'helper methods' }
 SpaceshipGame >> shieldsOf: aShipName [
 
 	| aShip |

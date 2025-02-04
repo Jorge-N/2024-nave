@@ -589,6 +589,79 @@ GameTest >> testWhenAShipEntersToAWormholeThenItShouldBeOnTheOtherWormhole [
 ]
 
 { #category : #tests }
+GameTest >> testWhenAShipHasMultipleProtectorsItsProtectorsShouldLoseShieldsOneByOne [
+
+	| aShip aGame someShips someDice cardsToDraw someCells aProtectorCard anotherShip someCards anotherProtectorCard yetAnotherShip someOtherCards aMercenaryCard aProtectorShip anotherProtectorShip otherShip |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	yetAnotherShip := 'test-ship-3'.
+	otherShip := 'test-ship-4'.
+	someShips := OrderedCollection
+		             with: aShip
+		             with: anotherShip
+		             with: yetAnotherShip
+		             with: otherShip.
+	someDice := Dice withAll:
+		            (Set with:
+			             (LoadedDie sequence:
+				              #( 1 8 8 1 9 10 1 10 9) asOrderedCollection)).
+	cardsToDraw := OrderedCollection
+		               with: ProtectorCard new
+		               with: ProtectorCard new
+		               with: MercenaryCard new
+		               with: MercenaryCard new.
+
+	someCells := OrderedCollection new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 10
+		         using: someDice
+		         withCells: someCells size
+		         wormholeStart: 9
+		         wormholeEnd: 10
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator cells: someCells)
+		         deck: (LoadedDeck cards: cardsToDraw).
+
+	someCards := aGame cardsOf: aShip.
+	someOtherCards := aGame cardsOf: anotherShip.
+	aProtectorCard := someCards first.
+	anotherProtectorCard := someCards second.
+	aMercenaryCard := someOtherCards first.
+
+	aGame playCard: aProtectorCard by: aShip target: anotherShip.
+	aGame playCard: anotherProtectorCard by: aShip target: yetAnotherShip.
+	aProtectorShip := aGame shipNamed: anotherShip.
+	anotherProtectorShip := aGame shipNamed: yetAnotherShip.
+	aProtectorShip removeShield.
+	aProtectorShip removeShield.
+	anotherProtectorShip removeShield.
+	anotherProtectorShip removeShield.
+
+	aGame throwDice.
+	aGame playCard: aMercenaryCard by: anotherShip target: yetAnotherShip.
+
+	aGame throwDice.
+	aGame throwDice.
+	aGame throwDice.
+	aGame throwDice.
+
+	self assert: (aGame indexOfCellWith: anotherShip) equals: 1.
+	self assert: (aGame indexOfCellWith: yetAnotherShip) equals: 1
+]
+
+{ #category : #tests }
 GameTest >> testWhenAShipHasTwoMercenariesThenTheyShouldHelpInABattle [
 
 	| aShip aGame someShips someDice cards cardsToDraw aMercenaryCard anotherShip yetAnotherShip yetAnotherAnotherShip anotherMercenaryCard |

@@ -57,7 +57,9 @@ CardManager >> assignProtectorShipToCardPlayer: aNewProtectorName by: aProtector
 	activeCardEffects add: (ProtectorEffect
 			 createdBy: aProtectorCard
 			 from: actualShipPlayingCard
-			 to: newProtector)
+			 to: newProtector).
+			
+	actualShipPlayingCard addProtector: newProtector.
 ]
 
 { #category : #'helper methods' }
@@ -126,7 +128,7 @@ CardManager >> playCard: aCard by: aShip target: aTarget [
 { #category : #accessing }
 CardManager >> protectorsOf: aShip [
 
-	^ ships select: [ :eachShip | self is: aShip protectorOf: eachShip ]
+	^ aShip protectors.
 ]
 
 { #category : #removing }
