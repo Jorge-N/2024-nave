@@ -736,6 +736,117 @@ GameTest >> testWhenAShipLandsInACardGivingCellTheShipShouldHaveOneMoreCard [
 ]
 
 { #category : #tests }
+GameTest >> testWhenAShipLosesABattleWithItsOwnProtectorAndProtectorHasNoShieldsItShouldLoseOneShield [
+
+	| aShip aGame someShips someDice cardsToDraw someCells aProtectorCard anotherShip someCards firstShip |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	someShips := OrderedCollection with: aShip with: anotherShip.
+	someDice := Dice withAll: (Set with: (LoadedDie sequence:
+				              #( 1 1 99 100 1 100 99 0 1 100 99 0 100 99 1 )
+					              asOrderedCollection)).
+	cardsToDraw := OrderedCollection
+		               with: ProtectorCard new
+		               with: ProtectorCard new.
+	someCells := OrderedCollection new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 10
+		         using: someDice
+		         withCells: someCells size
+		         wormholeStart: 9
+		         wormholeEnd: 10
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator cells: someCells)
+		         deck: (LoadedDeck cards: cardsToDraw).
+
+	someCards := aGame cardsOf: aShip.
+	aProtectorCard := someCards first.
+
+	aGame playCard: aProtectorCard by: aShip target: anotherShip.
+	firstShip := aGame shipNamed: aShip.
+	firstShip removeShield.
+	firstShip removeShield.
+
+	aGame throwDice.
+	aGame throwDice. "battle 1"
+	aGame throwDice. "battle 2"
+	aGame throwDice.
+	aGame throwDice. "battle 3"
+	aGame throwDice. "ship 2 should be penalized"
+	aGame throwDice. "ship 1 battles and loses"
+	aGame throwDice. "ship 2 penalized"
+	aGame throwDice. "ship 1 penalized"
+
+	self assert: (aGame indexOfCellWith: aShip) equals: 1.
+	self assert: (aGame indexOfCellWith: anotherShip) equals: 1
+]
+
+{ #category : #tests }
+GameTest >> testWhenAShipLosesABattleWithItsOwnProtectorItShouldNotLoseAnyShields [
+
+	| aShip aGame someShips someDice cardsToDraw someCells aProtectorCard anotherShip someCards |
+	aShip := 'test-ship-1'.
+	anotherShip := 'test-ship-2'.
+	someShips := OrderedCollection with: aShip with: anotherShip.
+	someDice := Dice withAll: (Set with:
+			             (LoadedDie sequence:
+				              #( 1 1 9 10 1 10 9 0 1 10 9 5 ) asOrderedCollection)).
+	cardsToDraw := OrderedCollection
+		               with: ProtectorCard new
+		               with: ProtectorCard new.
+	someCells := OrderedCollection new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+	someCells add: NormalCell new.
+
+	aGame := SpaceshipGame
+		         with: someShips
+		         lapsToWin: 10
+		         using: someDice
+		         withCells: someCells size
+		         wormholeStart: 9
+		         wormholeEnd: 10
+		         lengthInParsecs: 100
+		         cellGenerator: (FixedCellGenerator cells: someCells)
+		         deck: (LoadedDeck cards: cardsToDraw).
+
+	someCards := aGame cardsOf: aShip.
+	aProtectorCard := someCards first.
+
+	aGame playCard: aProtectorCard by: aShip target: anotherShip.
+
+	aGame throwDice.
+	aGame throwDice. "battle 1"
+	aGame throwDice. "battle 2"
+	aGame throwDice.
+	aGame throwDice. "battle 3"
+	aGame throwDice. "ship 2 should be penalized"
+	aGame throwDice. "ship 1 should move"
+
+	self assert: (aGame indexOfCellWith: aShip) equals: 6.
+	self assert: (aGame indexOfCellWith: anotherShip) equals: 1
+]
+
+{ #category : #tests }
 GameTest >> testWhenAShipPlaysACancellationCardOnAReversalCardThatReversedANormalCellItShouldnChangeAnything [
 
 	| aShip someShips aGame someDice someCells cardsToDraw deck aReversalCard aCell aCancellationCard |
