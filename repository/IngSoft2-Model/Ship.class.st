@@ -107,12 +107,6 @@ Ship >> restoreShields [
 	shields := 3
 ]
 
-{ #category : #accessing }
-Ship >> shields [
-
-	^ shields
-]
-
 { #category : #'deck logic' }
 Ship >> verifyHas: aCard [
 

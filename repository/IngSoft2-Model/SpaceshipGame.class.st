@@ -221,14 +221,6 @@ SpaceshipGame >> ranking [
 ]
 
 { #category : #'helper methods' }
-SpaceshipGame >> shieldsOf: aShipName [
-
-	| aShip |
-	aShip := ships detect: [ :eachShip | eachShip name = aShipName ].
-	^ aShip shields
-]
-
-{ #category : #'helper methods' }
 SpaceshipGame >> shipNamed: aShipName [
 
 	| aShip |
