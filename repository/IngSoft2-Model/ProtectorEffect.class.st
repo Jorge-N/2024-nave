@@ -14,6 +14,12 @@ ProtectorEffect class >> createdBy: aCard from: fromShip to: toShip [
 	^ self new initializeWith: aCard from: fromShip to: toShip
 ]
 
+{ #category : #'helper methods' }
+ProtectorEffect >> can: aShip protect: anotherShip [
+
+	^ anotherShip isPenalized not and: (toShip = anotherShip and: fromShip = aShip)
+]
+
 { #category : #initialization }
 ProtectorEffect >> initializeWith: aCreatedBy from: aFromShip to: aToShip [
 

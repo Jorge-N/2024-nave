@@ -62,6 +62,13 @@ CardManager >> assignProtectorShipToCardPlayer: aNewProtectorName by: aProtector
 	actualShipPlayingCard addProtector: newProtector.
 ]
 
+{ #category : #testing }
+CardManager >> can: aShip protect: anotherShip [
+
+	^ activeCardEffects anySatisfy: [ :eachEffect |
+		  eachEffect can: aShip protect: anotherShip ]
+]
+
 { #category : #'helper methods' }
 CardManager >> checkIf: actualShip shouldBattleWith: collidingShip in: aGame [
 
@@ -74,6 +81,14 @@ CardManager >> diceModifierTo: aShip [
 
 	^ (activeCardEffects collect: [ :eachCardEffect |
 		   eachCardEffect diceModifierTo: aShip name ]) sumNumbers
+]
+
+{ #category : #accessing }
+CardManager >> findDamageReceiver: aShip [
+
+	^ ships
+		  detect: [ :eachShip | self can: aShip protect: eachShip ]
+		  ifNone: aShip
 ]
 
 { #category : #initialization }

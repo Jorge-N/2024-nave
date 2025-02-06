@@ -7,6 +7,12 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
+{ #category : #'helper methods' }
+CardEffect >> can: aShip protect: anotherShip [
+
+	^ false
+]
+
 { #category : #'card effect' }
 CardEffect >> diceModifierTo: aShipName [
 
