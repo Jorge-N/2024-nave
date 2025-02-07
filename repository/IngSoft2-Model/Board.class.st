@@ -40,15 +40,6 @@ Board >> anyShipCompletedAllLaps [
 ]
 
 { #category : #'cell effect' }
-Board >> applyEffectTo: aShip [
-
-	| aCell |
-	aCell := self whereIs: aShip.
-	lastCellEffectUsed := aCell.
-	aCell applyEffectTo: aShip in: self
-]
-
-{ #category : #'cell effect' }
 Board >> applyEffectTo: aShip withEffect: aCellEffect [
 
 	lastCellEffectUsed := aCellEffect.

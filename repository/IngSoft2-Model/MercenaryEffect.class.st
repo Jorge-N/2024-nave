@@ -41,14 +41,3 @@ MercenaryEffect >> mercenaryCollideWith: possibleMercenaryName [
 
 	^ possibleMercenaryName = toShip name
 ]
-
-{ #category : #removing }
-MercenaryEffect >> removeEffect [
-
-]
-
-{ #category : #'as yet unclassified' }
-MercenaryEffect >> revertEffect [
-
-	
-]

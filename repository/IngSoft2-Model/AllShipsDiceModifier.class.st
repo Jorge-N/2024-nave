@@ -22,15 +22,3 @@ AllShipsDiceModifier >> initializeWith: aCard [
 	createdBy := aCard.
 	^ self
 ]
-
-{ #category : #removing }
-AllShipsDiceModifier >> removeEffect [
-
-	
-]
-
-{ #category : #'as yet unclassified' }
-AllShipsDiceModifier >> revertEffect [
-
-	
-]

@@ -127,13 +127,6 @@ CardManager >> is: aShip mercenaryOf: anotherShip [
 		  eachEffect is: aShip mercenaryOf: anotherShip ]
 ]
 
-{ #category : #testing }
-CardManager >> is: aShip protectorOf: anotherShip [
-
-	^ activeCardEffects anySatisfy: [ :eachEffect |
-		  eachEffect is: aShip protectorOf: anotherShip ]
-]
-
 { #category : #accessing }
 CardManager >> mercenariesOf: aShip [
 
@@ -148,12 +141,6 @@ CardManager >> playCard: aCard by: aShip target: aTarget [
 	aCard useWith: self target: aTarget.
 	lastUsedCard := aCard usedCardWith: lastUsedCard.
 	aShip removeFromDeck: aCard
-]
-
-{ #category : #accessing }
-CardManager >> protectorsOf: aShip [
-
-	^ aShip protectors.
 ]
 
 { #category : #removing }

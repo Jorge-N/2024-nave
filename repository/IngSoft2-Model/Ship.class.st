@@ -17,12 +17,6 @@ Ship class >> named: aShipName cards: someCards [
 	^ self new initializeWith: aShipName cards: someCards
 ]
 
-{ #category : #adding }
-Ship >> addProtector: aProtectorShip [
-
-	protectors add: aProtectorShip
-]
-
 { #category : #'shields logic' }
 Ship >> addShield [
 
@@ -69,12 +63,6 @@ Ship >> playIn: aGame [
 		ifFalse: [ aGame handleMovementOf: self ]
 ]
 
-{ #category : #accessing }
-Ship >> protectors [
-
-	^ protectors
-]
-
 { #category : #'deck logic' }
 Ship >> receive: aCard [
 
@@ -92,12 +80,6 @@ Ship >> receiveBattleDamageIn: aBoard [
 Ship >> removeFromDeck: aCard [
 
 	cards remove: aCard
-]
-
-{ #category : #removing }
-Ship >> removeProtector: aProtector [
-
-	protectors remove: aProtector
 ]
 
 { #category : #'shields logic' }

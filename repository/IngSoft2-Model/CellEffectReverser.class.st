@@ -31,20 +31,3 @@ CellEffectReverser >> isAReversedEffectOf: aCell [
 
 	^ cell = aCell 
 ]
-
-{ #category : #removing }
-CellEffectReverser >> removeEffect [
-
-]
-
-{ #category : #'cell effect' }
-CellEffectReverser >> reverseEffect [
-
-	cell reverseEffect
-]
-
-{ #category : #'as yet unclassified' }
-CellEffectReverser >> revertEffect [
-
-	cell backToNormalEffect
-]
