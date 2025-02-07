@@ -144,7 +144,7 @@ SpaceshipGame >> handleMovementOf: aShip [
 	diceResult := dice throw.
 	diceModifier := cardManager diceModifierTo: aShip.
 	board move: aShip by: diceResult + diceModifier.
-	board applyEffectTo: aShip.
+	cardManager applyEffectTo: aShip.
 	board checkIf: aShip IsCollidingIn: self
 ]
 

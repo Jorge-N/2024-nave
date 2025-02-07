@@ -11,5 +11,5 @@ ReversalCard >> useWith: aCardManager target: aCell [
 	aCardManager verifyIsCardPlayerTurn.
 	aCellEffectReverser := CellEffectReverser to: aCell createdBy: self.
 	aCardManager addCardEffect: aCellEffectReverser.
-	aCellEffectReverser reverseEffect
+	
 ]

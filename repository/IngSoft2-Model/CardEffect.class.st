@@ -37,6 +37,12 @@ CardEffect >> is: aShip protectorOf: anotherShip [
 	^ false
 ]
 
+{ #category : #testing }
+CardEffect >> isAReversedEffectOf: aCell [
+
+	^ false
+]
+
 { #category : #'helper methods' }
 CardEffect >> mercenaryCollideWith: possibleMercenaryName [
 

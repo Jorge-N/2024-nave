@@ -32,6 +32,18 @@ CardManager >> applyBattleModifierTo: aShip using: aDice [
 	^ (shipAllies collect: [ :ally | aDice throw ]) sumNumbers
 ]
 
+{ #category : #'cell effect' }
+CardManager >> applyEffectTo: aShip [
+
+	| aCell aCellEffect |
+	aCell := board whereIs: aShip.
+	aCellEffect := activeCardEffects
+		               detect: [ :eachEffect |
+		               eachEffect isAReversedEffectOf: aCell ]
+		               ifNone: [ CellEffectNormal of: aCell ].
+	board applyEffectTo: aShip withEffect: aCellEffect
+]
+
 { #category : #'card effect' }
 CardManager >> assignMercenaryShipToCardPlayer: aNewMercenaryName by: aCard [
 
@@ -153,7 +165,6 @@ CardManager >> removeEffectOf: aCard [
 		                  eachEffect wasCreatedBy: aCard ]
 		                  ifNone: [
 		                  Error signal: 'no such card in active cards!' ].
-	effectToRemove revertEffect.
 	activeCardEffects remove: effectToRemove
 ]
 

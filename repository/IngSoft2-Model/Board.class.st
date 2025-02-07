@@ -49,6 +49,13 @@ Board >> applyEffectTo: aShip [
 ]
 
 { #category : #'cell effect' }
+Board >> applyEffectTo: aShip withEffect: aCellEffect [
+
+	lastCellEffectUsed := aCellEffect.
+	aCellEffect applyEffectTo: aShip in: self
+]
+
+{ #category : #'cell effect' }
 Board >> applyLastEffectTo: aShipName [
 
 	| aShip |
