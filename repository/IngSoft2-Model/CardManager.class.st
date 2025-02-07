@@ -58,8 +58,6 @@ CardManager >> assignProtectorShipToCardPlayer: aNewProtectorName by: aProtector
 			 createdBy: aProtectorCard
 			 from: actualShipPlayingCard
 			 to: newProtector).
-			
-	actualShipPlayingCard addProtector: newProtector.
 ]
 
 { #category : #testing }
@@ -156,7 +154,6 @@ CardManager >> removeEffectOf: aCard [
 		                  ifNone: [
 		                  Error signal: 'no such card in active cards!' ].
 	effectToRemove revertEffect.
-	effectToRemove removeEffect.
 	activeCardEffects remove: effectToRemove
 ]
 
