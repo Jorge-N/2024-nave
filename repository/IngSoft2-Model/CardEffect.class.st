@@ -7,6 +7,12 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
+{ #category : #'helper methods' }
+CardEffect >> can: aShip protect: anotherShip [
+
+	^ false
+]
+
 { #category : #'card effect' }
 CardEffect >> diceModifierTo: aShipName [
 
@@ -21,6 +27,18 @@ CardEffect >> is: actualShip alliedWith: collidingShip [
 
 { #category : #'helper methods' }
 CardEffect >> is: aShip mercenaryOf: anotherShip [
+
+	^ false
+]
+
+{ #category : #'helper methods' }
+CardEffect >> is: aShip protectorOf: anotherShip [
+
+	^ false
+]
+
+{ #category : #testing }
+CardEffect >> isAReversedEffectOf: aCell [
 
 	^ false
 ]

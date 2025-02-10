@@ -20,9 +20,15 @@ CardGivingCell class >> new [
 ]
 
 { #category : #'cell effect' }
-CardGivingCell >> applyEffectTo: aShip in: aBoard [
+CardGivingCell >> applyNormalEffectTo: aShip in: aBoard [
 
 	aShip receive: deck drawCard
+]
+
+{ #category : #'cell effect' }
+CardGivingCell >> applyReversedEffectTo: aShip in: aBoard [
+
+	aShip removeFromDeck: aShip cards atRandom
 ]
 
 { #category : #initialization }

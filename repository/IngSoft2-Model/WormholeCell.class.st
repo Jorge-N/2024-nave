@@ -2,7 +2,9 @@ Class {
 	#name : #WormholeCell,
 	#superclass : #Cell,
 	#instVars : [
-		'wormholeEnd'
+		'wormholeEnd',
+		'wormholeEndIndex',
+		'wormholeStartIndex'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -18,24 +20,53 @@ WormholeCell class >> newPairIn: someCells start: wormholeStartLocation end: wor
 	| firstWormhole secondWormhole |
 	firstWormhole := super new.
 	secondWormhole := super new.
-	firstWormhole initializeWith: secondWormhole.
-	secondWormhole initializeWith: firstWormhole.
+	firstWormhole
+		initializeWith: secondWormhole
+		starting: wormholeStartLocation
+		ending: wormholeEndLocation.
+	secondWormhole
+		initializeWith: firstWormhole
+		starting: wormholeStartLocation
+		ending: wormholeEndLocation.
 
-	someCells at: wormholeStartLocation put: (firstWormhole).
-	someCells at: wormholeEndLocation put: (secondWormhole)
+	someCells at: wormholeStartLocation put: firstWormhole.
+	someCells at: wormholeEndLocation put: secondWormhole
 ]
 
 { #category : #'cell effect' }
-WormholeCell >> applyEffectTo: aShip in: aBoard [
+WormholeCell >> applyNormalEffectTo: aShip in: aBoard [
 
-	| aCell |
+	| aCell wormholeEndCell |
+	wormholeEndCell := aBoard cellWithIndex: wormholeEndIndex.
 	aCell := aBoard whereIs: aShip.
 	aCell leaves: aShip.
-	wormholeEnd enters: aShip
+	wormholeEndCell enters: aShip
+]
+
+{ #category : #'cell effect' }
+WormholeCell >> applyReversedEffectTo: aShip in: aBoard [
+
+	| actualCellIndex actualCell |
+	actualCell := aBoard whereIs: aShip.
+	actualCellIndex := aBoard indexOfCellWith: aShip.
+
+	actualCellIndex = wormholeStartIndex
+		ifTrue: [
+			aBoard
+				move: aShip
+				throughReversedWormholeStartFrom: wormholeStartIndex
+				to: wormholeEndIndex ]
+		ifFalse: [
+			aBoard
+				move: aShip
+				throughReversedWormholeEndFrom: wormholeEndIndex
+				to: wormholeStartIndex ]
 ]
 
 { #category : #initialization }
-WormholeCell >> initializeWith: aWormholeCell [
+WormholeCell >> initializeWith: aWormholeCell starting: wormholeStartLocation ending: wormholeEndLocation [
 
+	wormholeStartIndex := wormholeStartLocation.
+	wormholeEndIndex := wormholeEndLocation.
 	wormholeEnd := aWormholeCell
 ]

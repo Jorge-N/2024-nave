@@ -5,8 +5,21 @@ Class {
 }
 
 { #category : #'cell effect' }
-HyperSpaceJumpCell >> applyEffectTo: aShip in: aBoard [
+HyperSpaceJumpCell >> applyNormalEffectTo: aShip in: aBoard [
 
 	aShip removeShield.
 	aBoard move: aShip by: 4
+]
+
+{ #category : #'cell effect' }
+HyperSpaceJumpCell >> applyReversedEffectTo: aShip in: aBoard [
+
+	aShip addShield.
+	aBoard move: aShip by: -4
+]
+
+{ #category : #initialization }
+HyperSpaceJumpCell >> initialize [
+
+	ships := OrderedCollection new
 ]

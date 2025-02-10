@@ -1,7 +1,7 @@
 # Ingenieria del Software II - Template
 
 ![GHA Status](https://github.com/Jorge-N/2024-nave/actions/workflows/GHA.yml/badge.svg)
-[![Coverage Status](https://coveralls.io/repos/github/Jorge-N/2024-nave/badge.svg?branch=master)](https://coveralls.io/github/uca-argentina/2024-nave?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/Jorge-N/2024-nave/badge.svg?branch=master)](https://coveralls.io/github/Jorge-N/2024-nave?branch=master)
 
 ## Metacello
 

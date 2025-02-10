@@ -4,8 +4,20 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'cell effect' }
-BlackholeCell >> applyEffectTo: aShip in: aBoard [
+{ #category : #initialization }
+BlackholeCell >> applyNormalEffectTo: aShip in: aBoard [
 
 	aBoard move: aShip by: -4
+]
+
+{ #category : #initialization }
+BlackholeCell >> applyReversedEffectTo: aShip in: aBoard [
+
+	aBoard move: aShip by: 4
+]
+
+{ #category : #initialization }
+BlackholeCell >> initialize [
+
+	ships := OrderedCollection new
 ]

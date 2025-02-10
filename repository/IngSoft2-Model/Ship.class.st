@@ -5,7 +5,8 @@ Class {
 		'shields',
 		'penalty',
 		'name',
-		'cards'
+		'cards',
+		'protectors'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -14,6 +15,13 @@ Class {
 Ship class >> named: aShipName cards: someCards [
 
 	^ self new initializeWith: aShipName cards: someCards
+]
+
+{ #category : #'shields logic' }
+Ship >> addShield [
+
+	shields := shields + 1.
+	
 ]
 
 { #category : #accessing }
@@ -29,7 +37,14 @@ Ship >> initializeWith: aName cards: someCards [
 	shields := 3.
 	penalty := 0.
 	cards := someCards.
+	protectors := OrderedCollection new.
 	^ self
+]
+
+{ #category : #testing }
+Ship >> isPenalized [
+
+	^ penalty > 0
 ]
 
 { #category : #accessing }
@@ -52,6 +67,13 @@ Ship >> playIn: aGame [
 Ship >> receive: aCard [
 
 	cards add: aCard
+]
+
+{ #category : #'shields logic' }
+Ship >> receiveBattleDamageIn: aBoard [
+
+	self removeShield.
+	shields = 0 ifTrue: [ aBoard moveToTheStart: self ]
 ]
 
 { #category : #'deck logic' }

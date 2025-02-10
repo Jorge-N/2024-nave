@@ -6,7 +6,8 @@ Class {
 		'lengthInParsecs',
 		'lapsPerShip',
 		'lapsToWin',
-		'lastCellEffectUsed'
+		'lastCellEffectUsed',
+		'lastCellUsed'
 	],
 	#classInstVars : [
 		'cells'
@@ -39,21 +40,27 @@ Board >> anyShipCompletedAllLaps [
 		  lapsByEachShip >= lapsToWin ]
 ]
 
-{ #category : #'cell effect' }
-Board >> applyEffectTo: aShip [
+{ #category : #'as yet unclassified' }
+Board >> applyEffectTo: aShip using: aCardManager [
 
-	| aCell |
+	| aCell aCellState |
 	aCell := self whereIs: aShip.
-	lastCellEffectUsed := aCell.
-	aCell applyEffectTo: aShip in: self
+	aCellState := aCardManager cellStateOf: aCell.
+	lastCellEffectUsed := aCellState.
+	lastCellUsed := aCell.
+	aCellState applyEffectOf: aCell to: aShip in: self
 ]
 
 { #category : #'cell effect' }
-Board >> applyLastEffectTo: aShipName [
+Board >> applyLastEffectTo: aShip [
 
-	| aShip |
-	aShip := self allShips detect: [ :ship | ship name = aShipName ].
-	lastCellEffectUsed applyEffectTo: aShip in: self
+	lastCellEffectUsed applyEffectOf: lastCellUsed to: aShip in: self
+]
+
+{ #category : #accessing }
+Board >> cellWithIndex: aCellIndex [
+
+	^ cells at: aCellIndex
 ]
 
 { #category : #'helper methods' }
@@ -75,7 +82,8 @@ Board >> initializeWith: someShips lengthInParsecs: aLengthInParsecs lapsToWin: 
 
 	aWormholeStartLocation = aWormholeEndLocation ifTrue: [
 		Error signal: 'wormhole cannot start and end in the same cell!' ].
-	lastCellEffectUsed := NormalCell new.
+	lastCellEffectUsed := CellStateNormal new.
+	lastCellUsed := NormalCell new.
 	lengthInParsecs := aLengthInParsecs.
 	lapsToWin := aNumberOfLapsToWin.
 	lapsPerShip := Dictionary new.
@@ -112,6 +120,28 @@ Board >> move: aShip by: anAmount [
 	nextCell := cells at: nextCellIndex.
 	actualCell leaves: aShip.
 	nextCell enters: aShip
+]
+
+{ #category : #'as yet unclassified' }
+Board >> move: aShip throughReversedWormholeEndFrom: startingCellIndex to: endingCellIndex [
+
+	| distanceBetweenWormholes cellsToMove |
+	distanceBetweenWormholes := startingCellIndex - endingCellIndex.
+
+	cellsToMove := cells size - distanceBetweenWormholes.
+	self move: aShip by: cellsToMove
+]
+
+{ #category : #'as yet unclassified' }
+Board >> move: aShip throughReversedWormholeStartFrom: startingCellIndex to: endingCellIndex [
+
+	| distanceBetweenWormholes cellsToMove |
+	distanceBetweenWormholes := endingCellIndex - startingCellIndex.
+
+	cellsToMove := (cells size - distanceBetweenWormholes) negated.
+	(self lapsOf: aShip) = 0
+		ifTrue: [ self moveToTheStart: aShip ]
+		ifFalse: [ self move: aShip by: cellsToMove ]
 ]
 
 { #category : #movement }

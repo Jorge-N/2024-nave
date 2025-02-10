@@ -14,7 +14,7 @@ HyperJumpCell class >> withLengths: aCollectionOfLenghts [
 ]
 
 { #category : #'cell effect' }
-HyperJumpCell >> applyEffectTo: aShip in: aBoard [
+HyperJumpCell >> applyNormalEffectTo: aShip in: aBoard [
 
 	| anAmountToMove |
 	anAmountToMove := lengths first.
@@ -23,9 +23,18 @@ HyperJumpCell >> applyEffectTo: aShip in: aBoard [
 	aBoard move: aShip by: anAmountToMove
 ]
 
+{ #category : #'cell effect' }
+HyperJumpCell >> applyReversedEffectTo: aShip in: aBoard [
+
+	| anAmountToMove |
+	anAmountToMove := lengths first.
+	lengths removeFirst.
+	lengths addLast: anAmountToMove.
+	aBoard move: aShip by: anAmountToMove negated
+]
+
 { #category : #initialization }
 HyperJumpCell >> initializeWith: someLengths [
 
-	lengths := someLengths.
-	^ self
+	lengths := someLengths
 ]

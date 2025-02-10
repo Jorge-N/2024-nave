@@ -19,6 +19,12 @@ Lightyears >> initializeWith: anAmount [
 	amount := anAmount
 ]
 
+{ #category : #arithmetic }
+Lightyears >> negated [
+
+	^ self initializeWith: amount * -1
+]
+
 { #category : #converting }
 Lightyears >> toCellsOf: aBoard [
 

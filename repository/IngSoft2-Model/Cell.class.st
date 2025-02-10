@@ -7,12 +7,6 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'cell effect' }
-Cell >> applyEffectTo: aShip in: aBoard [
-
-	self subclassResponsibility
-]
-
 { #category : #'ship collision' }
 Cell >> checkCollisionIn: aGame [
 

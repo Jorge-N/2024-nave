@@ -14,9 +14,15 @@ MoonwalkCell class >> times: aNumberOfTimes [
 ]
 
 { #category : #'cell effect' }
-MoonwalkCell >> applyEffectTo: aShip in: aBoard [
+MoonwalkCell >> applyNormalEffectTo: aShip in: aBoard [
 
 	aBoard moveAllShips: times negated except: aShip
+]
+
+{ #category : #'cell effect' }
+MoonwalkCell >> applyReversedEffectTo: aShip in: aBoard [
+
+		aBoard moveAllShips: times except: aShip
 ]
 
 { #category : #initialization }
