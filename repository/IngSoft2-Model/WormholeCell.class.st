@@ -3,7 +3,6 @@ Class {
 	#superclass : #Cell,
 	#instVars : [
 		'wormholeEnd',
-		'currentEffect',
 		'wormholeEndIndex',
 		'wormholeStartIndex'
 	],
@@ -35,32 +34,39 @@ WormholeCell class >> newPairIn: someCells start: wormholeStartLocation end: wor
 ]
 
 { #category : #'cell effect' }
-WormholeCell >> applyEffectTo: aShip in: aBoard [
+WormholeCell >> applyNormalEffectTo: aShip in: aBoard [
 
-	currentEffect applyEffectTo: aShip in: aBoard
+	| aCell wormholeEndCell |
+	wormholeEndCell := aBoard cellWithIndex: wormholeEndIndex.
+	aCell := aBoard whereIs: aShip.
+	aCell leaves: aShip.
+	wormholeEndCell enters: aShip
 ]
 
-{ #category : #'as yet unclassified' }
-WormholeCell >> backToNormalEffect [
+{ #category : #'cell effect' }
+WormholeCell >> applyReversedEffectTo: aShip in: aBoard [
 
-	currentEffect := NormalWormholeEffect
-		                 withStart: wormholeStartIndex
-		                 withEnd: wormholeEndIndex
+	| actualCellIndex actualCell |
+	actualCell := aBoard whereIs: aShip.
+	actualCellIndex := aBoard indexOfCellWith: aShip.
+
+	actualCellIndex = wormholeStartIndex
+		ifTrue: [
+			aBoard
+				move: aShip
+				throughReversedWormholeStartFrom: wormholeStartIndex
+				to: wormholeEndIndex ]
+		ifFalse: [
+			aBoard
+				move: aShip
+				throughReversedWormholeEndFrom: wormholeEndIndex
+				to: wormholeStartIndex ]
 ]
 
 { #category : #initialization }
 WormholeCell >> initializeWith: aWormholeCell starting: wormholeStartLocation ending: wormholeEndLocation [
 
-	currentEffect := NormalWormholeEffect
-		                 withStart: wormholeStartLocation
-		                 withEnd: wormholeEndLocation.
 	wormholeStartIndex := wormholeStartLocation.
 	wormholeEndIndex := wormholeEndLocation.
 	wormholeEnd := aWormholeCell
-]
-
-{ #category : #'cell effect' }
-WormholeCell >> reverseEffect [
-
-	currentEffect := currentEffect reverse
 ]

@@ -7,12 +7,6 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'cell effect' }
-Cell >> applyEffectTo: aShip in: aBoard [
-
-	self subclassResponsibility
-]
-
 { #category : #'ship collision' }
 Cell >> checkCollisionIn: aGame [
 
@@ -54,10 +48,4 @@ Cell >> isOccupied [
 Cell >> leaves: aShip [
 
 	ships remove: aShip
-]
-
-{ #category : #'as yet unclassified' }
-Cell >> reverseEffect [
-
-	self subclassResponsibility
 ]

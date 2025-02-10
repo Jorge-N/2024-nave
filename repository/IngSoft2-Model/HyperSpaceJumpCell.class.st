@@ -1,33 +1,25 @@
 Class {
 	#name : #HyperSpaceJumpCell,
 	#superclass : #Cell,
-	#instVars : [
-		'currentEffect'
-	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'cell effect' }
-HyperSpaceJumpCell >> applyEffectTo: aShip in: aBoard [
+HyperSpaceJumpCell >> applyNormalEffectTo: aShip in: aBoard [
 
-	currentEffect applyEffectTo: aShip in: aBoard
+	aShip removeShield.
+	aBoard move: aShip by: 4
 ]
 
-{ #category : #'as yet unclassified' }
-HyperSpaceJumpCell >> backToNormalEffect [
+{ #category : #'cell effect' }
+HyperSpaceJumpCell >> applyReversedEffectTo: aShip in: aBoard [
 
-	currentEffect := NormalHyperSpaceJumpEffect new
+	aShip addShield.
+	aBoard move: aShip by: -4
 ]
 
 { #category : #initialization }
 HyperSpaceJumpCell >> initialize [
 
-	ships := OrderedCollection new.
-	currentEffect := NormalHyperSpaceJumpEffect new
-]
-
-{ #category : #'as yet unclassified' }
-HyperSpaceJumpCell >> reverseEffect [
-
-	currentEffect := currentEffect reverse
+	ships := OrderedCollection new
 ]

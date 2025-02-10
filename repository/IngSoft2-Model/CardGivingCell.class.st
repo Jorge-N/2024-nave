@@ -2,8 +2,7 @@ Class {
 	#name : #CardGivingCell,
 	#superclass : #Cell,
 	#instVars : [
-		'deck',
-		'currentEffect'
+		'deck'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -21,15 +20,15 @@ CardGivingCell class >> new [
 ]
 
 { #category : #'cell effect' }
-CardGivingCell >> applyEffectTo: aShip in: aBoard [
+CardGivingCell >> applyNormalEffectTo: aShip in: aBoard [
 
-	currentEffect applyEffectTo: aShip in: aBoard
+	aShip receive: deck drawCard
 ]
 
-{ #category : #'as yet unclassified' }
-CardGivingCell >> backToNormalEffect [
+{ #category : #'cell effect' }
+CardGivingCell >> applyReversedEffectTo: aShip in: aBoard [
 
-	currentEffect := NormalCardGivingEffect deck: deck
+	aShip removeFromDeck: aShip cards atRandom
 ]
 
 { #category : #initialization }
@@ -37,12 +36,5 @@ CardGivingCell >> initializeWith: aDeck [
 
 	ships := OrderedCollection new.
 	deck := aDeck.
-	currentEffect := NormalCardGivingEffect deck: aDeck.
 	^ self
-]
-
-{ #category : #'cell effect' }
-CardGivingCell >> reverseEffect [
-
-	currentEffect := currentEffect reverse
 ]

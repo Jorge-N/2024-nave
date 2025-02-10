@@ -6,7 +6,8 @@ Class {
 		'lengthInParsecs',
 		'lapsPerShip',
 		'lapsToWin',
-		'lastCellEffectUsed'
+		'lastCellEffectUsed',
+		'lastCellUsed'
 	],
 	#classInstVars : [
 		'cells'
@@ -39,19 +40,21 @@ Board >> anyShipCompletedAllLaps [
 		  lapsByEachShip >= lapsToWin ]
 ]
 
-{ #category : #'cell effect' }
-Board >> applyEffectTo: aShip withEffect: aCellEffect [
+{ #category : #'as yet unclassified' }
+Board >> applyEffectTo: aShip using: aCardManager [
 
-	lastCellEffectUsed := aCellEffect.
-	aCellEffect applyEffectTo: aShip in: self
+	| aCell aCellState |
+	aCell := self whereIs: aShip.
+	aCellState := aCardManager cellStateOf: aCell.
+	lastCellEffectUsed := aCellState.
+	lastCellUsed := aCell.
+	aCellState applyEffectOf: aCell to: aShip in: self
 ]
 
 { #category : #'cell effect' }
-Board >> applyLastEffectTo: aShipName [
+Board >> applyLastEffectTo: aShip [
 
-	| aShip |
-	aShip := self allShips detect: [ :ship | ship name = aShipName ].
-	lastCellEffectUsed applyEffectTo: aShip in: self
+	lastCellEffectUsed applyEffectOf: lastCellUsed to: aShip in: self
 ]
 
 { #category : #accessing }
@@ -79,7 +82,8 @@ Board >> initializeWith: someShips lengthInParsecs: aLengthInParsecs lapsToWin: 
 
 	aWormholeStartLocation = aWormholeEndLocation ifTrue: [
 		Error signal: 'wormhole cannot start and end in the same cell!' ].
-	lastCellEffectUsed := NormalCell new.
+	lastCellEffectUsed := CellStateNormal new.
+	lastCellUsed := NormalCell new.
 	lengthInParsecs := aLengthInParsecs.
 	lapsToWin := aNumberOfLapsToWin.
 	lapsPerShip := Dictionary new.

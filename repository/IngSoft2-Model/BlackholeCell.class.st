@@ -1,33 +1,23 @@
 Class {
 	#name : #BlackholeCell,
 	#superclass : #Cell,
-	#instVars : [
-		'currentEffect'
-	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #initialization }
-BlackholeCell >> applyEffectTo: aShip in: aBoard [
+BlackholeCell >> applyNormalEffectTo: aShip in: aBoard [
 
-	currentEffect applyEffectTo: aShip in: aBoard
+	aBoard move: aShip by: -4
 ]
 
-{ #category : #'as yet unclassified' }
-BlackholeCell >> backToNormalEffect [
+{ #category : #initialization }
+BlackholeCell >> applyReversedEffectTo: aShip in: aBoard [
 
-	currentEffect := NormalBlackholeEffect new
+	aBoard move: aShip by: 4
 ]
 
 { #category : #initialization }
 BlackholeCell >> initialize [
 
-	ships := OrderedCollection new.
-	currentEffect := NormalBlackholeEffect new
-]
-
-{ #category : #'as yet unclassified' }
-BlackholeCell >> reverseEffect [
-
-	currentEffect := currentEffect reverse
+	ships := OrderedCollection new
 ]

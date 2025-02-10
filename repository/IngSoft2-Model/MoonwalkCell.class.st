@@ -2,7 +2,6 @@ Class {
 	#name : #MoonwalkCell,
 	#superclass : #Cell,
 	#instVars : [
-		'currentEffect',
 		'times'
 	],
 	#category : #'IngSoft2-Model'
@@ -15,26 +14,19 @@ MoonwalkCell class >> times: aNumberOfTimes [
 ]
 
 { #category : #'cell effect' }
-MoonwalkCell >> applyEffectTo: aShip in: aBoard [
+MoonwalkCell >> applyNormalEffectTo: aShip in: aBoard [
 
-	currentEffect applyEffectTo: aShip in: aBoard
+	aBoard moveAllShips: times negated except: aShip
 ]
 
-{ #category : #'as yet unclassified' }
-MoonwalkCell >> backToNormalEffect [
+{ #category : #'cell effect' }
+MoonwalkCell >> applyReversedEffectTo: aShip in: aBoard [
 
-	currentEffect := NormalMoonwalkEffect times: times
+		aBoard moveAllShips: times except: aShip
 ]
 
 { #category : #initialization }
 MoonwalkCell >> initializeWith: aNumberOfTimes [
 
-	times := aNumberOfTimes.
-	currentEffect := NormalMoonwalkEffect times: aNumberOfTimes
-]
-
-{ #category : #'as yet unclassified' }
-MoonwalkCell >> reverseEffect [
-
-	currentEffect := currentEffect reverse
+	times := aNumberOfTimes
 ]

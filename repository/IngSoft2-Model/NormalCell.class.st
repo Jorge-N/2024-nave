@@ -5,19 +5,13 @@ Class {
 }
 
 { #category : #'cell effect' }
-NormalCell >> applyEffectTo: aShip in: aBoard [
+NormalCell >> applyNormalEffectTo: aShip in: aBoard [
 
 	
 ]
 
-{ #category : #'as yet unclassified' }
-NormalCell >> backToNormalEffect [
-
-	
-]
-
-{ #category : #'as yet unclassified' }
-NormalCell >> reverseEffect [
+{ #category : #'cell effect' }
+NormalCell >> applyReversedEffectTo: aShip in: aBoard [
 
 	
 ]

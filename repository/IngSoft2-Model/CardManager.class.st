@@ -7,7 +7,8 @@ Class {
 		'deck',
 		'activeCardEffects',
 		'actualShipPlayingCard',
-		'lastUsedCard'
+		'lastUsedCard',
+		'aShip'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -35,13 +36,7 @@ CardManager >> applyBattleModifierTo: aShip using: aDice [
 { #category : #'cell effect' }
 CardManager >> applyEffectTo: aShip [
 
-	| aCell aCellEffect |
-	aCell := board whereIs: aShip.
-	aCellEffect := activeCardEffects
-		               detect: [ :eachEffect |
-		               eachEffect isAReversedEffectOf: aCell ]
-		               ifNone: [ CellEffectNormal of: aCell ].
-	board applyEffectTo: aShip withEffect: aCellEffect
+	board applyEffectTo: aShip using: self
 ]
 
 { #category : #'card effect' }
@@ -77,6 +72,15 @@ CardManager >> can: aShip protect: anotherShip [
 
 	^ activeCardEffects anySatisfy: [ :eachEffect |
 		  eachEffect can: aShip protect: anotherShip ]
+]
+
+{ #category : #'as yet unclassified' }
+CardManager >> cellStateOf: aCell [
+
+	^ (activeCardEffects anySatisfy: [ :eachEffect |
+		   eachEffect isAReversedEffectOf: aCell ])
+		  ifTrue: [ CellStateReversed new ]
+		  ifFalse: [ CellStateNormal new ]
 ]
 
 { #category : #'helper methods' }
@@ -167,7 +171,16 @@ CardManager >> repeatLastCardWithTarget: aTarget [
 { #category : #'cell effect' }
 CardManager >> repeatLastCellEffectTo: aShipName [
 
-	board applyLastEffectTo: aShipName
+	aShip := ships detect: [ :ship | ship name = aShipName ].
+	board applyLastEffectTo: aShip
+]
+
+{ #category : #'as yet unclassified' }
+CardManager >> verifyIsAlreadyReversed: aCell [
+
+	(activeCardEffects anySatisfy: [ :eachEffect |
+		 eachEffect isAReversedEffectOf: aCell ]) ifTrue: [
+		Error signal: 'this cell is already reversed!' ]
 ]
 
 { #category : #'helper methods' }

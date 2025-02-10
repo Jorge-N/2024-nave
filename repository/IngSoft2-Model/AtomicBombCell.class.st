@@ -5,20 +5,15 @@ Class {
 }
 
 { #category : #'cell effect' }
-AtomicBombCell >> applyEffectTo: aShip in: aBoard [
+AtomicBombCell >> applyNormalEffectTo: aShip in: aBoard [
 
 	aBoard removeShieldFromAllShips.
 	aBoard moveAllShipsToTheStart
 ]
 
 { #category : #'cell effect' }
-AtomicBombCell >> backToNormalEffect [
+AtomicBombCell >> applyReversedEffectTo: aShip in: aBoard [
 
-	
-]
-
-{ #category : #'cell effect' }
-AtomicBombCell >> reverseEffect [
-
-	
+	aBoard removeShieldFromAllShips.
+	aBoard moveAllShipsToTheStart
 ]
